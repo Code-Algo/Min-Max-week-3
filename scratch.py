@@ -2,25 +2,17 @@ import requests
 import colorama
 from colorama import Fore, Back, Style
 colorama.init()
-def create_activity(self):
-    response=requests.get(f'http://www.boredapi.com/api/activity?minprice={self.minimum}.5&maxprice={self.maximum}')
-    if not response.ok:
-        return False
+        
+minimum= []
+maximum= []
 
-    data = response.json()
+x = input("What is your min? ")
+y = input("What is your max? ")
+mi = int(x)/100
+ma = int(y)/100
+minimum.append(mi)
+maximum.append(ma)
 
-    activity = self.data['activity']
-    type = self.data['type']
-    participants = self.data['participants']
-    price = self.data['price']
-print(data)
-
-    return True
-
-    
-
-    self.minimum = input("What is your min? ")
-    self.maximum = input("What is your max? ")
-    
-    print(self.data['activity'])
+print(minimum)
+print(maximum)
 

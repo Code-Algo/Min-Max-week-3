@@ -1,49 +1,44 @@
- 
 import requests
 import colorama
 from colorama import Fore, Back, Style
-colorama.init()
+colorama.init(autoreset=True)
 
 class Bored():
     def __init__(self):
-        self.activity = ['activity']
-        self.type = ['type']
-        self.participants = ['participants']
-        self.price = ['price']
-        self.minimum = ''
-        self.maximum = ''
-    def min_max(self):
-        return
-    
+        self.minimum = []
+        self.maximum = []
+
     def create_activity(self):
-        response=requests.get(f'http://www.boredapi.com/api/activity?minprice={self.minimum}.5&maxprice={self.maximum}')
+        
+        x = input("What is your minimum price range from 0-1? ")
+        y = input("What is your maximum price range? Must be larger than min. ")
+        self.minimum.append(x)
+        self.maximum.append(y)
+        
+        response=requests.get(f'http://www.boredapi.com/api/activity?minprice={self.minimum[0]}.5&maxprice={self.maximum[0]}')
         if not response.ok:
             return False
-        self.data = response.json()
+        data = response.json()
+        print("="*40)
+        print(Fore.BLUE + Style.BRIGHT + f"Activity: {data['activity']}") 
+        print(Fore.RED + Style.BRIGHT + f"\nType of Activity: {data['type']}")
+        print(Fore.YELLOW + Style.BRIGHT + f"\nParticipants: {data['participants']}")
+        print(Fore.GREEN + Style.BRIGHT + f"\nPrice: {data['price']}")
+        print("="*40)
 
-        
-        self.activity = self.data['activity']
-        self.type = self.data['type']
-        self.participants = self.data['participants']
-        self.price = self.data['price']
-        print(self.data)
-        
+
+
 
 bored = Bored()
 def main():
     while True:
-        bored.minimum = input("What is your min? ")
-        bored.maximum = input("What is your max? ")
-        if bored.minimum or bored.maximum >= bored.price:
+        prompt = input("Are you bored? ")
+        if prompt[0].lower() == "y":
             bored.create_activity()
-        else:
-            return
-        
+        if prompt[0].lower() == "q":
+            return ('Have Fun Out There...')
 
 print(main())
-
-### I won't lie, been fiddling around for around 5 hours now and I've drafted and redrafted so much I'm not sure what to do.
-## Will accept min 0 and max infinity, but if you mess with the min it errors.
 
 
     
